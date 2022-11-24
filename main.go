@@ -14,13 +14,14 @@ type Customer struct {
 }
 
 func main() {
+	port := ":7000"
 	//define routes
 	http.HandleFunc("/greet", greet)
 	http.HandleFunc("/customers", getAllCustomers)
 
 	fmt.Println("Started server on 7000 port")
 	//starting server
-	log.Fatal(http.ListenAndServe(":7000", nil))
+	log.Fatal(http.ListenAndServe(port, nil))
 
 }
 

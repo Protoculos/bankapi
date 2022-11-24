@@ -1,46 +1,9 @@
 package main
 
 import (
-	"encoding/json"
-	"encoding/xml"
-	"fmt"
-	"log"
-	"net/http"
+	"github.com/Protoculos/bankapi/app"
 )
 
-type Customer struct {
-	Name    string `json:"name,omitempty" xml:"name,omitempty"`
-	City    string `json:"city,omitempty" xml:"city,omitempty"`
-	Zipcode string `json:"zipcode,omitempty" xml:"zipcode,omitempty"`
-}
-
 func main() {
-	port := ":7000"
-	//define routes
-	http.HandleFunc("/greet", greet)
-	http.HandleFunc("/customers", getAllCustomers)
-
-	fmt.Println("Started server on 7000 port")
-	//starting server
-	log.Fatal(http.ListenAndServe(port, nil))
-
-}
-
-func greet(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "Hello World!")
-}
-func getAllCustomers(w http.ResponseWriter, r *http.Request) {
-	customers := []Customer{
-		{"John", "Novorossiysk", "112345"},
-		{"Less", "Moscow", "983940"},
-	}
-
-	if r.Header.Get("Content-Type") == "application/xml" {
-		w.Header().Add("Content-Type", "application/xml")
-		xml.NewEncoder(w).Encode(customers)
-	} else {
-		w.Header().Add("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(customers)
-	}
-
+	app.Start()
 }
